@@ -1,0 +1,1 @@
+# gRPC_server_anomalib_MVTec
