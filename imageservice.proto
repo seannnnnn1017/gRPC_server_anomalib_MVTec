@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package imageservice;
+
+service ImageService {
+  rpc UploadImage (ImageUploadRequest) returns (ImageUploadResponse);
+  rpc DownloadImage (ImageDownloadRequest) returns (ImageDownloadResponse);
+  rpc PredictImage (ImageDownloadRequest) returns (ImagePredictionResponse);
+}
+
+message ImageUploadRequest {
+  string image_name = 1;
+  bytes image_data = 2;
+}
+
+message ImageUploadResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message ImageDownloadRequest {
+  string image_name = 1;
+}
+
+message ImageDownloadResponse {
+  bytes image_data = 1;
+}
+
+message ImagePredictionResponse {
+  string prediction = 1;
+}
