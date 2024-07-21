@@ -20,6 +20,7 @@ message ImageUploadResponse {
 
 message ImageDownloadRequest {
   string image_name = 1;
+  repeated string image_names = 2;
 }
 
 message ImageDownloadResponse {
@@ -28,4 +29,6 @@ message ImageDownloadResponse {
 
 message ImagePredictionResponse {
   string prediction = 1;
+  repeated string predictions = 2;
+  string all_time = 3;
 }

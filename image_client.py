@@ -17,9 +17,15 @@ def download_image(stub, image_name, save_as):
     print(f"Image downloaded and saved as {save_as}")
     
 def predict_image(stub, image_name):
-    request = imageservice_pb2.ImageDownloadRequest(image_name=image_name)
+    
+    if type(image_name) == str:
+        request = imageservice_pb2.ImageDownloadRequest(image_name=image_name)
+    else:
+        request = imageservice_pb2.ImageDownloadRequest(image_names=image_name)
     response = stub.PredictImage(request)
-    print(f"Prediction result: {response.prediction}")
+    print(f"Prediction result: {response.prediction} ")
+    for i, pred in enumerate(response.predictions):
+        print(f"No.{i+1} Prediction:{pred}")
 
 def run():
     options = [
@@ -29,7 +35,8 @@ def run():
     with grpc.insecure_channel('localhost:50051', options=options) as channel:
         stub = imageservice_pb2_grpc.ImageServiceStub(channel)
         #upload_image(stub, 'input_images/test_image.png')
-        predict_image(stub, 'input_images/test_image0.png')
+        predict_image(stub, image_name='input_images/test_image.png')
+        predict_image(stub, ['input_images/test_image0.png', 'input_images/test_image.png'])
         #download_image(stub, 'output_images/output_segmentations.png', 'downloaded/downloaded_test_image.png')
 
 if __name__ == "__main__":

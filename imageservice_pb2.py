@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12imageservice.proto\x12\x0cimageservice\"<\n\x12ImageUploadRequest\x12\x12\n\nimage_name\x18\x01 \x01(\t\x12\x12\n\nimage_data\x18\x02 \x01(\x0c\"7\n\x13ImageUploadResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x0f\n\x07message\x18\x02 \x01(\t\"*\n\x14ImageDownloadRequest\x12\x12\n\nimage_name\x18\x01 \x01(\t\"+\n\x15ImageDownloadResponse\x12\x12\n\nimage_data\x18\x01 \x01(\x0c\"-\n\x17ImagePredictionResponse\x12\x12\n\nprediction\x18\x01 \x01(\t2\x97\x02\n\x0cImageService\x12R\n\x0bUploadImage\x12 .imageservice.ImageUploadRequest\x1a!.imageservice.ImageUploadResponse\x12X\n\rDownloadImage\x12\".imageservice.ImageDownloadRequest\x1a#.imageservice.ImageDownloadResponse\x12Y\n\x0cPredictImage\x12\".imageservice.ImageDownloadRequest\x1a%.imageservice.ImagePredictionResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12imageservice.proto\x12\x0cimageservice\"<\n\x12ImageUploadRequest\x12\x12\n\nimage_name\x18\x01 \x01(\t\x12\x12\n\nimage_data\x18\x02 \x01(\x0c\"7\n\x13ImageUploadResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x0f\n\x07message\x18\x02 \x01(\t\"?\n\x14ImageDownloadRequest\x12\x12\n\nimage_name\x18\x01 \x01(\t\x12\x13\n\x0bimage_names\x18\x02 \x03(\t\"+\n\x15ImageDownloadResponse\x12\x12\n\nimage_data\x18\x01 \x01(\x0c\"T\n\x17ImagePredictionResponse\x12\x12\n\nprediction\x18\x01 \x01(\t\x12\x13\n\x0bpredictions\x18\x02 \x03(\t\x12\x10\n\x08\x61ll_time\x18\x03 \x01(\t2\x97\x02\n\x0cImageService\x12R\n\x0bUploadImage\x12 .imageservice.ImageUploadRequest\x1a!.imageservice.ImageUploadResponse\x12X\n\rDownloadImage\x12\".imageservice.ImageDownloadRequest\x1a#.imageservice.ImageDownloadResponse\x12Y\n\x0cPredictImage\x12\".imageservice.ImageDownloadRequest\x1a%.imageservice.ImagePredictionResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -26,11 +26,11 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_IMAGEUPLOADRESPONSE']._serialized_start=98
   _globals['_IMAGEUPLOADRESPONSE']._serialized_end=153
   _globals['_IMAGEDOWNLOADREQUEST']._serialized_start=155
-  _globals['_IMAGEDOWNLOADREQUEST']._serialized_end=197
-  _globals['_IMAGEDOWNLOADRESPONSE']._serialized_start=199
-  _globals['_IMAGEDOWNLOADRESPONSE']._serialized_end=242
-  _globals['_IMAGEPREDICTIONRESPONSE']._serialized_start=244
-  _globals['_IMAGEPREDICTIONRESPONSE']._serialized_end=289
-  _globals['_IMAGESERVICE']._serialized_start=292
-  _globals['_IMAGESERVICE']._serialized_end=571
+  _globals['_IMAGEDOWNLOADREQUEST']._serialized_end=218
+  _globals['_IMAGEDOWNLOADRESPONSE']._serialized_start=220
+  _globals['_IMAGEDOWNLOADRESPONSE']._serialized_end=263
+  _globals['_IMAGEPREDICTIONRESPONSE']._serialized_start=265
+  _globals['_IMAGEPREDICTIONRESPONSE']._serialized_end=349
+  _globals['_IMAGESERVICE']._serialized_start=352
+  _globals['_IMAGESERVICE']._serialized_end=631
 # @@protoc_insertion_point(module_scope)

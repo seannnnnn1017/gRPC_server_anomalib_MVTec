@@ -5,6 +5,7 @@ import imageservice_pb2_grpc
 from prediction import predict_image
 from matplotlib import pyplot as plt
 import time
+import os
 class ImageService(imageservice_pb2_grpc.ImageServiceServicer):
     def UploadImage(self, request, context):
         image_name = request.image_name
@@ -16,13 +17,35 @@ class ImageService(imageservice_pb2_grpc.ImageServiceServicer):
     def PredictImage(self, request, context):
         time_stats = time.time()
         image_name = request.image_name
-        try:
-            img = plt.imread(image_name)
-            prediction = predict_image(model_path='prediction\models\model.pt',image_path=image_name)
-            all_time=f"Prediction time: {time.time() - time_stats}"
-            return imageservice_pb2.ImagePredictionResponse(prediction=f'{prediction}  {all_time}')
-        except FileNotFoundError:
-            context.abort(grpc.StatusCode.NOT_FOUND, "Image not found")
+        if image_name:
+            try:
+
+                img = plt.imread(image_name)
+                prediction = predict_image(model_path='models\model.pt',image_path=image_name)
+                all_time=f"Prediction and transfer time: {time.time() - time_stats}"
+                return imageservice_pb2.ImagePredictionResponse(prediction=f'{prediction}  {str(all_time)}')
+            except FileNotFoundError:
+                context.abort(grpc.StatusCode.NOT_FOUND, "Image not found")
+        image_name = request.image_names
+        image_name = list(image_name)
+
+
+        print(f"Predicting multiple images {image_name}")
+        predictions=[]
+        for img_name in image_name:
+            try:
+                img = plt.imread(img_name)
+                predictions.append(f'name: {img_name} '+predict_image(model_path='models\model.pt',image_path=img_name))
+
+            except FileNotFoundError:
+                context.abort(grpc.StatusCode.NOT_FOUND, f"path: {img_name} not found")
+        all_time=f"Prediction and transfer time: {time.time() - time_stats}"
+        predictions.append(all_time)
+        return imageservice_pb2.ImagePredictionResponse(predictions=predictions)
+
+
+
+           
 
     def DownloadImage(self, request, context):
         image_name = request.image_name
