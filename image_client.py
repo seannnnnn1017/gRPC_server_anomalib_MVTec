@@ -38,12 +38,15 @@ def run():
         ('grpc.max_send_message_length', 100 * 1024 * 1024),  # 100 MB
         ('grpc.max_receive_message_length', 100 * 1024 * 1024)  # 100 MB
     ]
-    with grpc.insecure_channel('localhost:50051', options=options) as channel:
+    with grpc.insecure_channel('192.168.1.117:50051', options=options) as channel:
         stub = imageservice_pb2_grpc.ImageServiceStub(channel)
-        #upload_image(stub, 'input_images/test_image.png')
+        upload_image(stub, image_path[0]) #only str
         predict_image(stub, image_path)
         #predict_image(stub, ['input_images/test_image0.png', 'input_images/test_image.png'])
-        #download_image(stub, 'output_images/output_segmentations.png', 'downloaded/downloaded_test_image.png')
+        image_name = 'output_images/'+image_path.split('/')[-1].split('.')[0]
+        download_image(stub, f'output_images/{image_name}', 'downloaded/downloaded_test_image.png')
 
 if __name__ == "__main__":
     run()
+
+    

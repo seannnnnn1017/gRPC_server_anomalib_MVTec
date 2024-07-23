@@ -28,4 +28,4 @@ py image_server.py
 ```
 5. Test your image 
 ```
-python image_client.py --image_path "path0.png, path1.png, path2.png"
+python image_client.py --image_path "test_image.png,test_image0.png"
