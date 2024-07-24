@@ -21,34 +21,31 @@ def predict_image(stub, image_name):
     
     if type(image_name) == str:
         request = imageservice_pb2.ImageDownloadRequest(image_name=image_name)
-        response = stub.PredictImage(request)
-
     else:
         request = imageservice_pb2.ImageDownloadRequest(image_names=image_name)
-        response = stub.PredictImage(request)
+    response = stub.PredictImage(request)
     print(f"Prediction result: {response.prediction} ")
-    if response.predictions:
-        for i, pred in enumerate(response.predictions[:-1]):
-            print(f"No.{i+1} Prediction:{pred}")
-        print(response.predictions[-1])
+    for i, pred in enumerate(response.predictions):
+        print(f"No.{i+1} Prediction:{pred}")
+
 def run():
     parser = argparse.ArgumentParser(description='Process some integers.')
-    parser.add_argument('--image_paths', type=str, help='Comma-separated list of image paths',default='input_images/test_image.png')
+    parser.add_argument('--image_paths', type=str, help='Comma-separated list of image paths')
     args = parser.parse_args()
     image_path = args.image_paths.split(',')
-    #print(image_path)
+    print(image_path)
     options = [
         ('grpc.max_send_message_length', 100 * 1024 * 1024),  # 100 MB
         ('grpc.max_receive_message_length', 100 * 1024 * 1024)  # 100 MB
     ]
     with grpc.insecure_channel('192.168.1.117:50051', options=options) as channel:
         stub = imageservice_pb2_grpc.ImageServiceStub(channel)
-        #upload_image(stub, image_path[0]) #only str
+        upload_image(stub, image_path[0]) #only str
         predict_image(stub, image_path)
-        #predict_image(stub, '"C:/Users/fishd/Desktop/Github/anomalib/datasets/MVTec/bottle/test/broken_large"')
+        #predict_image(stub, ['input_images/test_image0.png', 'input_images/test_image.png'])
         image_name = image_path[0].split('/')[-1].split('.')[0]
     
-        #download_image(stub, f'output_images/{image_name}_segmentations.png', f'downloaded/{image_name}_segmentations.png')
+        download_image(stub, f'output_images/{image_name}_segmentations.png', f'downloaded/{image_name}_segmentations.png')
 
 if __name__ == "__main__":
     run()
